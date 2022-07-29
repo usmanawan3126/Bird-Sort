@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c636390896ca545abe6b91cf56c0da, type: 3}
+  m_Name: Levelgenerator
+  m_EditorClassIdentifier: 
+  leveDatas:
+  - Level_no: 1
+    No_of_Branches: 2
+    No_of_EmptyBranches: 1
+  - Level_no: 2
+    No_of_Branches: 3
+    No_of_EmptyBranches: 1
+  - Level_no: 3
+    No_of_Branches: 5
+    No_of_EmptyBranches: 2
+  - Level_no: 4
+    No_of_Branches: 5
+    No_of_EmptyBranches: 2
+  - Level_no: 5
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 6
+    No_of_Branches: 5
+    No_of_EmptyBranches: 2
+  - Level_no: 7
+    No_of_Branches: 6
+    No_of_EmptyBranches: 3
+  - Level_no: 8
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 9
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 10
+    No_of_Branches: 6
+    No_of_EmptyBranches: 2
+  - Level_no: 11
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 12
+    No_of_Branches: 8
+    No_of_EmptyBranches: 2
+  - Level_no: 13
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 14
+    No_of_Branches: 6
+    No_of_EmptyBranches: 2
+  - Level_no: 15
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 16
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 17
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 18
+    No_of_Branches: 9
+    No_of_EmptyBranches: 2
+  - Level_no: 19
+    No_of_Branches: 9
+    No_of_EmptyBranches: 2
+  - Level_no: 20
+    No_of_Branches: 10
+    No_of_EmptyBranches: 2
+  - Level_no: 21
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 22
+    No_of_Branches: 9
+    No_of_EmptyBranches: 2
+  - Level_no: 23
+    No_of_Branches: 10
+    No_of_EmptyBranches: 2
+  - Level_no: 24
+    No_of_Branches: 7
+    No_of_EmptyBranches: 2
+  - Level_no: 25
+    No_of_Branches: 9
+    No_of_EmptyBranches: 2

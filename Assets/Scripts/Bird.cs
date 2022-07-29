@@ -6,6 +6,8 @@ public class Bird : MonoBehaviour
 {
     [HideInInspector]
     public Animator birdAnim;
+    public AudioSource source;
+    public AudioClip clip;
 
     private void OnEnable()
     {
@@ -22,11 +24,13 @@ public class Bird : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.transform.position.y > 5.0f)
-        {
-            Destroy(gameObject);
-        }
+        //if (this.gameObject.transform.position.y > 5.0f && )
+        //    {
+        //    Debug.Log("Destroyed");
+        //this.gameObject.SetActive(false);
+        //}
     }
+    
     public void flipPos()
     {
         Debug.Log("Entered");

@@ -4,39 +4,62 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 using UnityEngine.SceneManagement;
-
-public class PlayerController : MonoBehaviour
+[System.Serializable]
+public class FlyingBirds
 {
-    //public GameObject[] birds;
-   
+    [SerializeField]
+    public List<Bird> Birds;
+    [SerializeField]
+    public Branch ToBranch;
+    [SerializeField]
+    public Branch FromBranch;
+    [SerializeField]
+    public FlyingBirds flyBird; 
+
+}
+ public class PlayerController : MonoBehaviour
+{
+    [SerializeField]
+    public List<FlyingBirds> FlyingBirdsList =new List<FlyingBirds>();
     public Bird item;
     List<Bird> Birds = new List<Bird>();
     List<Bird> Empty = new List<Bird>();
     public List<Branch> Branches =new List<Branch>();
     public List<Branch> Selected = new List<Branch>();
-    List<GameObject> SelectedB = new List<GameObject>();
+    public List<Branch> SelectedB = new List<Branch>();
     float pos = 0.1f;
     public float i = 0.21f;
     Transform firstChild;
     [HideInInspector]
     public int currentB = 0;
-    //[HideInInspector]
     public int emptyBranch = 0;
     Random r = new Random();
-    public List<Bird> Addedbirds = new List<Bird>();
     public Bird birdEmpty;
     int b1;
-    public GameObject block;
-    public Undo u;
+  public GameObject block;
+    public static PlayerController instance;
+    public List<Bird> Undobirds = new List<Bird>();
+    public List<List<Bird>> UndobirdsMain = new List<List<Bird>>();
+    public List<BranchHistory> birdsList=new List<BranchHistory>();
+    public bool AddUndo = true;
+    public bool ExtraUndo=false;
+    public int LevelendCounter = 0;
+    public LevelDataManager LD;
+    public GameObject NextPanel;
+    public int LeveltoLoad=0;
+    public AudioClip clip;
+    // public BranchHistory undoObject;
+    private void Awake()
+    {
+        this.gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+        instance = this;
+    }
 
-    //public List<Branch> Branc = new List<Branch>();
-
-    // Start is called before the first frame update
     void Start()
     {
-        Instantiate(block,transform.position=new Vector3(0, 5.3145f, 0),Quaternion.identity);
         
-
+        NextPanel.SetActive(false);
+        Instantiate(block,transform.position=new Vector3(0, 5.3145f, 0),Quaternion.identity);
         int birdCount = 0;
         int c1 = 0;
         for (int i = 0; i < Branches.Count; i++)
@@ -68,132 +91,44 @@ public class PlayerController : MonoBehaviour
         }
         Birds.AddRange(Empty);
         Debug.Log("birdCount : " + birdCount);
-        //if (birdCount > Birds.Count)
-        //{
-        //    Debug.Log("Birds.Count : " + Birds.Count);
-        //    int remaing = birdCount - Birds.Count;
-
-        //    Debug.Log("Remaining : " + remaing);
-        //    Branches[Branches.Count()-1].birdcount -= remaing;
-        //}
-        //else if (birdCount < Birds.Count)
-        //{
-        //    Debug.Log("Birds.Count : "+ Birds.Count);
-        //    int remaing = Birds.Count - birdCount;
-        //    Debug.Log("Remaining : " + remaing);
-        //    //Branches[0].birdcount = Birds.Count- remaing;
-        //    Branches[Branches.Count()-1].birdcount += remaing;
-        //}
-        //Birds = items.Select(x => new { value = x, order = rnd.Next() })
-        //     .OrderBy(x => x.order).Select(x => x.value).ToList()
-        //foreach (var item in Birds)
-        //{
-        //    Debug.Log(item);
-        //}
+      
         var RndB = new System.Random();
         Birds = Birds.Select(x => new { value = x, order = r.Next() })
              .OrderBy(x => x.order).Select(x => x.value).ToList();
-        //Debug.Log("----------------------");
-        //foreach (var item in Birds)
-        //{
-        //    Debug.Log(item);
-        //}
+       
         int count = 0;
         for (int i = 0; i < Branches.Count; i++)
         {
             count = Branches[i].birdcount;
-           // Debug.Log(count);
+          
             Branches[i].AssignBirds(Birds.GetRange(0, 4));
             Birds.RemoveRange(0, 4);
         }
     }
-    // Update is called once per frame
     void Update()
     {
-        // i++;
-        //int c = 0;
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector3 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    Vector2 mousepos2D = new Vector2(mousepos.x, mousepos.y);
-        //    RaycastHit2D hit = Physics2D.Raycast(mousepos2D, Vector2.zero);
-        //    if (hit.collider.gameObject.tag == "Branch")
-        //    {
-        //       currentI = Branches.IndexOf(hit.collider.gameObject);
-        //        if (branch.Count == 0)
-        //        {
-        //            Debug.Log("Children are 0");
-        //            Debug.Log(Selected.Count);
-        //            if (Selected.Count > 0)
-        //            {
-        //                for (int i = 0; i < c; i++)
-        //                {
-        //                    Debug.Log(Selected[i].name);
-        //                    Selected[i].gameObject.transform.parent = branch[currentI].transform;
-        //                    Selected[i].transform.position = Vector3.Lerp(Selected[0].transform.position, branch[currentI].gameObject.transform.position, Time.time);
-        //                    pos = pos + pos;
-        //                }
-        //                return;
-        //            }
-
-        //        }
-
-
-        //        firstChild = branch[currentI].transform.GetChild(0);
-        //        c = Selected.Count;
-        //        Debug.Log(c);
-
-        //        if (Selected.Count > 0 && firstChild.gameObject.tag == Selected[0].gameObject.tag)
-        //        {
-
-        //            for (int i = 0; i < c; i++)
-        //            {
-        //                Selected[i].gameObject.transform.parent = branch[currentI].transform;
-        //                Selected[i].transform.position = Vector3.Lerp(Selected[0].transform.position, new Vector2(firstChild.gameObject.transform.position.x - pos, firstChild.gameObject.transform.position.y), Time.time);
-        //                pos = pos + pos;
-        //            }
-        //            Selected.Clear();
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("Colours not matched");
-        //            Selected.Clear();
-        //            Selected.Add(firstChild.gameObject);
-        //            firstChild = branch[currentI].transform.GetChild(1);
-        //            Debug.Log("Added 1st Object");
-        //            if (firstChild.gameObject.tag == Selected[0].gameObject.tag)
-        //            {
-        //                Selected.Add(firstChild.gameObject);
-        //                Debug.Log("Added 2nd Object");
-        //            }
-        //        }
-        //    }
-        //}
-        //Debug.Log("sELECTED : "+ Selected.Count);
+        
 
     }
     public void SelectB(Branch b)
     {
-        //foreach (var item in b.GetMatchingBrids())
-        //{
-        //    Debug.Log("Bird Tag: "+ item.tag);
-        //}
         Debug.Log("Selected");
-        if (Selected.Count < 2)
+        if (this.Selected.Count < 2)
         {
-            if (Selected.Contains(b))
+            b.GetComponent<Branch>().GetMatchingBrids(b);
+            if (this.Selected.Contains(b))
             {
                 return;
             }
-            Selected.Add(b);
-            // return;
+            this.Selected.Add(b);
         }
         if (Selected.Count == 2)
         {
-            u.BrancUndo.Add(Selected[0]);
-            u.BrancUndo.Add(Selected[1]);
-            Selected[1].AddBirds(Selected[0], Selected[1]);
-            Selected.Clear();
+            this.SelectedB.Add(this.Selected[0]);
+            this.SelectedB.Add(this.Selected[1]);
+            
+            this.Selected[1].AddBirds(this.Selected[0], this.Selected[1]);
+            this.Selected.Clear();  
             return;
         }
 
@@ -211,10 +146,15 @@ public class PlayerController : MonoBehaviour
         }
         return (BirdType)same;
     }
+    
+    [SerializeField]
     public void Res()
     {
         SceneManager.LoadScene(0);
     }
+
+
+
 }
 
 public enum BirdType
@@ -228,9 +168,4 @@ public enum BirdType
     Redbird,
     Sparrow,
     YellowSparrow
-    //Yellow,
-    //Green,
-    //Red,
-
-    //Blue
 }

@@ -46,9 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birds: []
   bird1: []
-  Player: {fileID: 0}
-  branches: []
+  Player: {fileID: 651995660914042653, guid: c124c5bbe0ea20a47932ee010072b120, type: 3}
   empty: 0
   spaces: []
   block: {fileID: 0}
+  auto: {fileID: 0}
+  getAutoValue: 0
+  BirdsUndo: []
   birdcount: 0

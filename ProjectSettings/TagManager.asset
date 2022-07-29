@@ -19,6 +19,7 @@ TagManager:
   - sparrow
   - YellowSparrow
   - Pigeon
+  - Undo
   layers:
   - Default
   - TransparentFX

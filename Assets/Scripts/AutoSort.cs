@@ -8,7 +8,7 @@ public class AutoSort : MonoBehaviour
     public int c ;
     [HideInInspector]
     public int c1;
-    public PlayerController playerController;
+    public GameObject player;
     public static bool MoveDone=false;
     // Start is called before the first frame update
     void Start()
@@ -20,43 +20,44 @@ public class AutoSort : MonoBehaviour
     void Update()
     {
         
+
     }
 
     private void autosort()
     {
         List<Branch> SelectedBranches = new List<Branch>();
-        for (int i = 0; i < playerController.Branches.Count; i++)
+        for (int i = 0; i < player.gameObject.GetComponent<PlayerController>().Branches.Count; i++)
         {
-            for (int j = i + 1; j < playerController.Branches.Count; j++)
+            for (int j = i + 1; j < player.gameObject.GetComponent<PlayerController>().Branches.Count; j++)
             {
-                if (playerController.Branches[j].getlastBird().tag != playerController.birdEmpty.tag)
+                if (player.gameObject.GetComponent<PlayerController>().Branches[j].getlastBird().tag != player.gameObject.GetComponent<PlayerController>().birdEmpty.tag)
                 {
 
 
                     // Debug.Log("Last Bird Tag  :  " + playerController.Branches[j].getlastBird().tag + "  " + i);
-                    if (playerController.Branches[i].getlastBird().tag == playerController.birdEmpty.tag) /*&& playerController.Branches[j].getlastBird().tag != playerController.birdEmpty.tag) || (playerController.Branches[j].getlastBird().tag == playerController.birdEmpty.tag && playerController.Branches[i].getlastBird().tag != playerController.birdEmpty.tag)*/
+                    if (player.gameObject.GetComponent<PlayerController>().Branches[i].getlastBird().tag == player.gameObject.GetComponent<PlayerController>().birdEmpty.tag) /*&& playerController.Branches[j].getlastBird().tag != playerController.birdEmpty.tag) || (playerController.Branches[j].getlastBird().tag == playerController.birdEmpty.tag && playerController.Branches[i].getlastBird().tag != playerController.birdEmpty.tag)*/
                     {
                         Debug.Log("Entered in Empty");
-                        playerController.SelectB(playerController.Branches[j]);
-                        playerController.SelectB(playerController.Branches[i]);
+                        player.gameObject.GetComponent<PlayerController>().SelectB(player.gameObject.GetComponent<PlayerController>().Branches[j]);
+                        player.gameObject.GetComponent<PlayerController>().SelectB(player.gameObject.GetComponent<PlayerController>().Branches[i]);
                         return;
                     }
                     //break;
 
 
-                    else if (playerController.Branches[i].getlastBird().tag == playerController.Branches[j].getlastBird().tag)
+                    else if (player.gameObject.GetComponent<PlayerController>().Branches[i].getlastBird().tag == player.gameObject.GetComponent<PlayerController>().Branches[j].getlastBird().tag)
                     {
-                        if (playerController.Branches[i].getEmptySpace() > playerController.Branches[j].getEmptySpace())
+                        if (player.gameObject.GetComponent<PlayerController>().Branches[i].getEmptySpace() > player.gameObject.GetComponent<PlayerController>().Branches[j].getEmptySpace())
                         {
-                            playerController.SelectB(playerController.Branches[j]);
-                            playerController.SelectB(playerController.Branches[i]);
+                            player.gameObject.GetComponent<PlayerController>().SelectB(player.gameObject.GetComponent<PlayerController>().Branches[j]);
+                            player.gameObject.GetComponent<PlayerController>().SelectB(player.gameObject.GetComponent<PlayerController>().Branches[i]);
                             return;
                         }
                         else
                         {
                             Debug.Log("Entered in Filled");
-                            playerController.SelectB(playerController.Branches[i]);
-                            playerController.SelectB(playerController.Branches[j]);
+                            player.gameObject.GetComponent<PlayerController>().SelectB(player.gameObject.GetComponent<PlayerController>().Branches[i]);
+                            player.gameObject.GetComponent<PlayerController>().SelectB(player.gameObject.GetComponent<PlayerController>().Branches[j]);
                             return;
                         }
 
